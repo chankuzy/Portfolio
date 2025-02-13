@@ -1,33 +1,29 @@
-// Smooth Scrolling
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth"
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    // Typed.js for Typewriter Effect
+    new Typed("#typed-text", {
+        strings: ["a developer.", "an artist.", "the code alchemist."],
+        typeSpeed: 100,
+        backSpeed: 50,
+        backDelay: 1000,
+        loop: true
     });
-});
 
-// GSAP Animations
-gsap.from(".glitch-text", { opacity: 0, y: -50, duration: 1 });
-gsap.from(".hero-img-container", { opacity: 0, scale: 0.8, duration: 1, delay: 0.5 });
-gsap.from(".btn", { opacity: 0, y: 30, duration: 1, delay: 0.8 });
+    // Particles.js for Background Effect
+    particlesJS("particles-js", {
+        particles: {
+            number: { value: 100 },
+            size: { value: 3 },
+            move: { speed: 1.5 },
+            line_linked: { enable: true, color: "#ffffff" }
+        }
+    });
 
-// Scroll Animations
-gsap.registerPlugin(ScrollTrigger);
+    // Burger Menu Toggle
+    const burger = document.getElementById("burger");
+    const mobileMenu = document.getElementById("mobile-menu");
 
-gsap.from(".section", {
-    scrollTrigger: ".section",
-    opacity: 0,
-    y: 50,
-    duration: 1
-});
-
-// Particles.js Effect
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 100 },
-        size: { value: 3 },
-        move: { speed: 2 }
-    }
+    burger.addEventListener("click", function() {
+        burger.classList.toggle("burger-active");
+        mobileMenu.classList.toggle("hidden");
+    });
 });
