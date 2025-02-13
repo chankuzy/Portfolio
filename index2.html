@@ -4,31 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Ibrahim | Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- TailwindCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <!-- GSAP & Typed.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" defer></script>
+
+    <!-- Particles.js -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+
+    <!-- Custom JS -->
     <script src="script2.js" defer></script>
+
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background: #0a0a0a;
+            color: white;
+        }
+
+        /* Animated Gradient Background */
+        .gradient-bg {
+            background: linear-gradient(45deg, #00d1ff, #ff0080, #00ff99, #ffcc00);
+            background-size: 400% 400%;
+            animation: gradientShift 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Burger Animation */
+        .burger-line {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .burger-active .line-1 {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .burger-active .line-2 {
+            opacity: 0;
+        }
+        .burger-active .line-3 {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="relative bg-gray-900 text-white">
+
     <!-- Particle Background -->
-    <div id="particles-js"></div>
+    <div id="particles-js" class="absolute inset-0 z-[-1]"></div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-md p-4 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-white text-2xl font-bold">Ibrahim</h1>
-            <ul class="flex space-x-6 text-white">
-                <li><a href="#hero" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+    <nav class="fixed top-0 left-0 w-full bg-black/70 backdrop-blur-md py-4 z-50">
+        <div class="container mx-auto flex justify-between items-center px-6">
+            <h1 class="text-xl font-bold">Ibrahim</h1>
+
+            <!-- Desktop Nav -->
+            <ul class="hidden md:flex space-x-6">
+                <li><a href="#hero" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="#projects" class="nav-link"><i class="fas fa-code"></i> Projects</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
+
+            <!-- Burger Menu (Mobile) -->
+            <div id="burger" class="md:hidden flex flex-col space-y-1 cursor-pointer">
+                <div class="burger-line w-6 h-1 bg-white line-1"></div>
+                <div class="burger-line w-6 h-1 bg-white line-2"></div>
+                <div class="burger-line w-6 h-1 bg-white line-3"></div>
+            </div>
         </div>
+
+        <!-- Mobile Menu -->
+        <ul id="mobile-menu" class="absolute top-16 left-0 w-full bg-black/80 text-center py-6 space-y-4 md:hidden hidden">
+            <li><a href="#hero" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a></li>
+            <li><a href="#projects" class="nav-link"><i class="fas fa-code"></i> Projects</a></li>
+            <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Hero Section -->
+    <section id="hero" class="h-screen flex flex-col items-center justify-center text-center px-6">
+        
+        <!-- Hero Image with Animated Border -->
+        <div class="relative w-40 h-40 mb-6">
+            <img src="image.jpg" alt="Muhammad Ibrahim" class="w-full rounded-full shadow-lg">
+            <div class="border-glow absolute inset-0"></div>
+        </div>
+
+        <!-- Terminal Typewriter Effect -->
+        <h1 class="text-4xl font-bold relative">
+            Muhammad Ibrahim <br>
+            <span class="text-cyan-400">I am <span id="typed-text"></span></span>
+        </h1>
+
+        <!-- CTA Button -->
+        <a href="#projects" class="mt-6 px-6 py-3 bg-cyan-400 text-black font-semibold rounded-lg transition-transform transform hover:scale-110">
+            View My Work
+        </a>
+
+        <!-- Social Icons -->
+        <div class="mt-6 flex space-x-6">
+            <a href="#" class="text-xl text-white hover:text-cyan-400"><i class="fab fa-github"></i></a>
+            <a href="#" class="text-xl text-white hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-xl text-white hover:text-cyan-400"><i class="fab fa-twitter"></i></a>
+        </div>
+    </section>
+
+
     <section id="hero" class="h-screen flex flex-col items-center justify-center text-center px-6">
         
         <!-- Hero Image with Animated Border -->
@@ -91,9 +185,7 @@
     </div>
 </section>
 
-
-<!-- Contact Section -->
-<section id="contact" class="py-20 px-6 text-center bg-gray-900">
+    <section id="contact" class="py-20 px-6 text-center bg-gray-900">
     <h2 class="text-3xl font-semibold text-white">Contact Me</h2>
 
     <form class="max-w-lg mx-auto mt-6">
@@ -105,6 +197,9 @@
         </button>
     </form>
 </section>
+
+
+    <script src="script2.js"></script>
 
 </body>
 </html>
