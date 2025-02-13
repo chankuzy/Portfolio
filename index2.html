@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ibrahim | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
+    <script src="script2.js" defer></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-md p-4 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-white text-2xl font-bold">Ibrahim</h1>
+            <ul class="flex space-x-6 text-white">
+                <li><a href="#hero" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="h-screen flex flex-col items-center justify-center text-center px-6">
+        
+        <!-- Hero Image with Animated Border -->
+        <div class="relative w-40 h-40 mb-6">
+            <img src="image.jpg" alt="Muhammad Ibrahim" class="w-full rounded-full shadow-lg">
+            <!---<div class="absolute inset-0 border-4 border-cyan-400 rounded-full animate-pulse"></div>--->
+        </div>
+
+        <!-- Glitch Text -->
+        <h1 class="text-4xl font-bold relative glitch-text">Muhammad Ibrahim</h1>
+        <p class="text-lg text-gray-400 mt-2">Web Developer | Ethical Hacker</p>
+
+        <!-- CTA Button -->
+        <a href="#projects" class="mt-6 px-6 py-3 bg-cyan-400 text-black font-semibold rounded-lg transition-transform transform hover:scale-110">
+            View My Work
+        </a>
+    </section>
+
+    <script>
+        // GSAP Animation for Glitch Text
+        gsap.to(".glitch-text", {
+            duration: 1,
+            x: "5px",
+            yoyo: true,
+            repeat: -1,
+            ease: "power1.inOut"
+        });
+    </script>
+<!-- About Me Section -->
+<section id="about" class="py-20 px-6 text-center">
+    <h2 class="text-3xl font-semibold">About Me</h2>
+    <p class="mt-4 text-gray-400 max-w-3xl mx-auto">
+        I am a passionate web developer and ethical hacker, crafting secure and immersive digital experiences.
+    </p>
+</section>
+
+
+<!-- Projects Section -->
+<section id="projects" class="py-20 px-6 bg-gray-800">
+    <h2 class="text-3xl font-semibold text-center text-white">My Projects</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <!-- Project 1 -->
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
+            <h3 class="text-xl font-semibold text-white">Project Name</h3>
+            <p class="text-gray-400 mt-2">Short project description.</p>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
+            <h3 class="text-xl font-semibold text-white">Project Name</h3>
+            <p class="text-gray-400 mt-2">Short project description.</p>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
+            <h3 class="text-xl font-semibold text-white">Project Name</h3>
+            <p class="text-gray-400 mt-2">Short project description.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 px-6 text-center bg-gray-900">
+    <h2 class="text-3xl font-semibold text-white">Contact Me</h2>
+
+    <form class="max-w-lg mx-auto mt-6">
+        <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4">
+        <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4">
+        <textarea placeholder="Your Message" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4"></textarea>
+        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition">
+            Send Message
+        </button>
+    </form>
+</section>
+
+</body>
+</html>
