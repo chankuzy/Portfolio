@@ -1,186 +1,556 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chankuzy | Portfolio</title>
+    <title>Ibrahim | Developer & Designer</title>
     
-    <!-- TailwindCSS -->
+    <!-- Core Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- FontAwesome Icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-    <!-- GSAP & Typed.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js" defer></script>
-
-    <!-- Particles.js -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" defer></script>
-
-    <!-- Custom JS -->
-    <script src="script.js" defer></script>
-
+    <!-- Add this in the head section after other dependencies -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Update light mode colors -->
     <style>
+        :root[data-theme="light"] {
+            --bg-primary: #f1f5f9;  /* Slightly darker background */
+            --bg-secondary: #e2e8f0;
+            --text-primary: #1e293b;  /* Darker text for better contrast */
+            --text-secondary: #475569;
+            --nav-bg: rgba(241, 245, 249, 0.8);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --button-hover: rgba(99, 102, 241, 0.15);
+        }
+    </style>
+    
+    <style>
+        /* Modern Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6366f1, #06b6d4);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #4f46e5, #0891b2);
+        }
+        :root {
+            --primary: #6366f1;
+            --secondary: #06b6d4;
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #f8fafc;  /* Softer background */
+            --bg-secondary: #f1f5f9;
+            --text-primary: #334155;  /* Softer text color */
+            --text-secondary: #64748b;
+            --nav-bg: rgba(90, 90, 90, 0.7);  /* Softer nav background */
+            --glass-border: rgba(0, 0, 0, 0.03);
+            --button-hover: rgba(99, 102, 241, 0.08);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #030712;
+            --bg-secondary: #111827;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --nav-bg: rgba(0, 0, 0, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --button-hover: rgba(99, 102, 241, 0.2);
+        }
+
         body {
-            font-family: 'Fira Code', monospace;
-            background: #0a0a0a;
-            color: white;
-            scroll-behaviour: smooth;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Animated Gradient Background */
-        .gradient-bg {
-            background: linear-gradient(45deg, #00d1ff, #ff0080, #00ff99, #ffcc00);
-            background-size: 400% 400%;
-            animation: gradientShift 6s infinite alternate ease-in-out;
+        .glass {
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        /* Update text colors to use CSS variables */
+        .nav-link {
+            color: var(--text-secondary);
         }
 
-        /* Burger Animation */
-        .burger-line {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        .nav-link:hover {
+            color: var(--text-primary);
         }
 
-        .burger-active .line-1 {
-            transform: translateY(8px) rotate(45deg);
+        /* Update gradient text for better visibility in light mode */
+        .gradient-text {
+            background: linear-gradient(45deg, 
+                var(--primary), 
+                var(--secondary)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .burger-active .line-2 {
-            opacity: 0;
+
+        /* Theme transition for all elements */
+        * {
+            transition: background-color 0.3s ease, 
+                        color 0.3s ease, 
+                        border-color 0.3s ease, 
+                        opacity 0.3s ease;
         }
-        .burger-active .line-3 {
-            transform: translateY(-8px) rotate(-45deg);
+
+        /* Update section icons for light mode */
+        .section-icon {
+            color: var(--text-primary);
+            opacity: 0.05;
+        }
+
+        /* Update button styles */
+        .theme-button {
+            color: var(--text-primary);
+            background: var(--nav-bg);
+        }
+
+        .theme-button:hover {
+            background: var(--button-hover);
         }
     </style>
 </head>
-<body class="relative bg-gray-900 text-white">
-
-    <!-- Particle Background -->
-    <div id="particles-js" class="absolute inset-0 z-[-1]"></div>
+<body>
+    <!-- Background Animation -->
+    <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 w-full bg-black/70 backdrop-blur-md py-4 z-50">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <h1 class="text-xl font-bold">Ibrahim</h1>
+    <!-- Keep only this navigation structure -->
+    <nav class="fixed top-0 left-0 w-full glass z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold gradient-text">Ibrahim</a>
+                
+                <button id="burger-menu" class="md:hidden p-3 glass rounded-xl hover:bg-indigo-600/20 transition-all">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
 
-            <!-- Desktop Nav -->
-            <ul class="hidden md:flex space-x-6">
-                <li><a href="#hero" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a></li>
-                <li><a href="#projects" class="nav-link"><i class="fas fa-code"></i> Projects</a></li>
-                <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
-            </ul>
-
-            <!-- Burger Menu (Mobile) -->
-            <div id="burger" class="md:hidden flex flex-col space-y-1 cursor-pointer">
-                <div class="burger-line w-6 h-1 bg-white line-1"></div>
-                <div class="burger-line w-6 h-1 bg-white line-2"></div>
-                <div class="burger-line w-6 h-1 bg-white line-3"></div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#hero" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="#projects" class="nav-link text-gray-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#contact" class="px-6 py-2 rounded-full glass hover:bg-indigo-600/20 transition-all">Contact</a>
+                    <button id="theme-toggle" class="p-2 rounded-full glass hover:bg-indigo-600/20 transition-all">
+                        <i class="ri-sun-line text-xl dark-icon hidden"></i>
+                        <i class="ri-moon-line text-xl light-icon"></i>
+                    </button>
+                </div>
             </div>
         </div>
-
-        <!-- Mobile Menu -->
-        <ul id="mobile-menu" class="absolute top-16 left-0 w-full bg-black/80 text-center py-6 space-y-4 md:hidden hidden">
-            <li><a href="#hero" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#about" class="nav-link"><i class="fas fa-user"></i> About</a></li>
-            <li><a href="#projects" class="nav-link"><i class="fas fa-code"></i> Projects</a></li>
-            <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="h-screen flex flex-col items-center justify-center text-center px-6">
-        
-        <!-- Hero Image with Animated Border -->
-        <div class="relative w-40 h-40 mb-6">
-            <img src="image.jpg" alt="Muhammad Ibrahim" class="w-full rounded-full shadow-lg">
-            <div class="border-glow absolute inset-0"></div>
+    <!-- Single Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-2xl opacity-0 transition-all duration-300"></div>
+        <div class="relative h-full flex flex-col items-center justify-center translate-y-[-100%] transition-transform duration-500">
+            <button class="absolute top-6 right-6 p-3 glass rounded-xl hover:bg-indigo-600/20 transition-all close-menu">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <a href="#hero" class="nav-link text-2xl text-gray-300 hover:text-white transition-colors">Home</a>
+            <a href="#about" class="nav-link text-2xl text-gray-300 hover:text-white transition-colors mt-8">About</a>
+            <a href="#projects" class="nav-link text-2xl text-gray-300 hover:text-white transition-colors mt-8">Projects</a>
+            <a href="#contact" class="text-2xl px-6 py-2 rounded-full glass hover:bg-indigo-600/20 transition-all mt-8">Contact</a>
+            <button id="theme-toggle-mobile" class="p-3 rounded-full glass hover:bg-indigo-600/20 transition-all mt-8">
+                <i class="fas fa-sun text-2xl dark-icon hidden"></i>
+                <i class="fas fa-moon text-2xl light-icon"></i>
+            </button>
         </div>
+    </div>
 
-        <!-- Terminal Typewriter Effect -->
-        <h1 class="text-4xl font-bold relative">
-            Muhammad Ibrahim <br>
-            <span class="text-cyan-400">I am <span id="typed-text"></span></span>
-        </h1>
-
-        <!-- CTA Button -->
-        <a href="#projects" class="mt-6 px-6 py-3 bg-cyan-400 text-black font-semibold rounded-lg transition-transform transform hover:scale-110">
-            View My Work
-        </a>
-
-        <!-- Social Icons -->
-        <div class="mt-6 flex space-x-6">
-            <a href="#" class="text-xl text-white hover:text-cyan-400"><i class="fab fa-github"></i></a>
-            <a href="#" class="text-xl text-white hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="text-xl text-white hover:text-cyan-400"><i class="fab fa-twitter"></i></a>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center px-6 pt-20 relative overflow-hidden">
+        <!-- Large Decorative Icons -->
+        <i class="ri-code-s-slash-line section-icon text-indigo-600/10 -right-20 top-20 rotate-12"></i>
+        <i class="ri-terminal-box-line section-icon text-cyan-500/10 -left-20 bottom-20 -rotate-12"></i>
+        
+        <div class="text-center relative z-10">
+            <div class="relative inline-block mb-8">
+                <img src="image.png" alt="Ibrahim" 
+                     class="w-32 h-32 rounded-full object-cover border-2 border-indigo-500/30">
+                <div class="absolute inset-0 rounded-full gradient-border"></div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                Building the Web
+                <span class="block mt-2 gradient-text">One Pixel at a Time</span>
+            </h1>
+            
+            <p class="text-gray-400 max-w-xl mx-auto mb-8">
+                Hi, I’m Khalifa – <strong>the Web Artisan</strong>, my strong specialties are Laravel and Vue.js passionate about creating seamless, user-friendly applications. From crafting stunning frontend interfaces to building powerful backend APIs, I turn ideas into reality with clean, 
+                maintainable code. Let’s build something extraordinary!
+            </p>
+            <div class="flex items-center justify-center space-x-4">
+                <a href="#projects" 
+                   class="group px-8 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 transition-all">
+                    <i class="ri-code-box-line mr-2"></i>
+                    View Projects
+                </a>
+                <a href="#contact" 
+                   class="group px-8 py-3 rounded-full glass hover:bg-white/10 transition-all">
+                    <i class="ri-mail-line mr-2"></i>
+                    Contact Me
+                </a>
+            </div>
         </div>
     </section>
 
+    <!-- After Hero Section -->
 
-    
-    <script>
-        // GSAP Animation for Glitch Text
-        gsap.to(".glitch-text", {
-            duration: 1,
-            x: "5px",
-            yoyo: true,
-            repeat: -1,
-            ease: "power1.inOut"
-        });
-    </script>
-<!-- About Me Section -->
-<section id="about" class="py-20 px-6 text-center">
-    <h2 class="text-3xl font-semibold">About Me</h2>
-    <p class="mt-4 text-gray-400 max-w-3xl mx-auto">
-        I am a passionate web developer and ethical hacker, crafting secure and immersive digital experiences.
-    </p>
-</section>
+        <!-- About Section -->
+        <section id="about" class="min-h-screen relative py-20 px-6">
+            <div class="container mx-auto">
+                <div class="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                    <i class="ri-user-heart-line section-icon text-8xl absolute -right-8 top-1/2 transform -translate-y-1/2 opacity-5"></i>
+                    
+                    <h2 class="text-4xl font-bold mb-8 gradient-text fade-in">About Me</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-6 fade-in">
+                            <!-- Add image here -->
+                            <div class="relative w-48 h-48 mx-auto md:mx-0 mb-6">
+                                <img src="image.png" alt="Ibrahim" 
+                                     class="w-full h-full object-cover rounded-2xl shadow-lg">
+                                <div class="absolute rounded-2xl border-2 border-indigo-500/30 glass"></div>
+                                <!-- Decorative elements -->
+                                <div class="absolute -right-3 -bottom-3 w-24 h-24 rounded-xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 -z-10"></div>
+                                <div class="absolute -left-3 -top-3 w-24 h-24 rounded-xl bg-gradient-to-br from-cyan-500/20 to-indigo-500/20 -z-10"></div>
+                            </div>
+
+                            <p class="text-lg">I specialize in full-stack web development with a focus on building high-performance applications. With a passion for modern technologies, I enjoy tackling complex challenges and turning them into intuitive and dynamic user experiences. Whether it's a small-scale web app or a large-scale enterprise solution, I bring both creativity and precision to every project I work on.</p>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="glass p-4 rounded-xl hover-card">
+                                    <i class="ri-code-box-line text-2xl gradient-text"></i>
+                                    <h3 class="font-bold mt-2">Development</h3>
+                                </div>
+                                <div class="glass p-4 rounded-xl hover-card">
+                                    <i class="ri-palette-line text-2xl gradient-text"></i>
+                                    <h3 class="font-bold mt-2">Design</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative fade-in">
+                            <div class="aspect-square rounded-2xl overflow-hidden glass p-6">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="glass p-4 rounded-xl text-center">
+                                        <span class="text-3xl font-bold gradient-text">3+</span>
+                                        <p class="text-sm mt-1">Years Experience</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl text-center">
+                                        <span class="text-3xl font-bold gradient-text">50+</span>
+                                        <p class="text-sm mt-1">Projects</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl text-center">
+                                        <span class="text-3xl font-bold gradient-text">30+</span>
+                                        <p class="text-sm mt-1">Clients</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl text-center">
+                                        <span class="text-3xl font-bold gradient-text">100%</span>
+                                        <p class="text-sm mt-1">Satisfaction</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="min-h-screen relative py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold mb-12 gradient-text text-center fade-in">Featured Projects</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card 1 -->
+                    <div class="glass rounded-2xl overflow-hidden hover-card fade-in">
+                        <div class="aspect-video bg-gradient-to-br from-indigo-500 to-cyan-500"></div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">A social platform</h3>
+                            <p class="text-secondary mb-4">A twitter and instagram like platform developed with just laravel.</p>
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1 glass rounded-full text-sm">Vuejs</span>
+                                <span class="px-3 py-1 glass rounded-full text-sm">Laravel</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add more project cards with similar structure -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="min-h-screen relative py-20 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass rounded-3xl p-8 md:p-12 relative overflow-hidden">
+                    <i class="ri-mail-send-line section-icon text-8xl absolute -right-8 top-1/2 transform -translate-y-1/2 opacity-5"></i>
+                    
+                    <h2 class="text-4xl font-bold mb-8 gradient-text text-center fade-in">Get in Touch</h2>
+                    
+                    <form id="contactForm" class="space-y-6 fade-in">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <input type="text" id="name" placeholder="Your Name" 
+                                    class="w-full px-6 py-4 rounded-xl glass border border-white/10 focus:border-indigo-500 outline-none transition-all bg-transparent">
+                            </div>
+                            <div>
+                                <input type="email" id="email" placeholder="Your Email" 
+                                    class="w-full px-6 py-4 rounded-xl glass border border-white/10 focus:border-indigo-500 outline-none transition-all bg-transparent">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <textarea id="message" placeholder="Your Message" rows="6" 
+                                class="w-full px-6 py-4 rounded-xl glass border border-white/10 focus:border-indigo-500 outline-none transition-all bg-transparent"></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" 
+                                class="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:opacity-90 transition-all">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-12 flex justify-center space-x-6">
+                        <a href="#" class="glass p-4 rounded-full hover:scale-110 transition-transform">
+                            <i class="ri-github-line text-xl"></i>
+                        </a>
+                        <a href="#" class="glass p-4 rounded-full hover:scale-110 transition-transform">
+                            <i class="ri-linkedin-line text-xl"></i>
+                        </a>
+                        <a href="#" class="glass p-4 rounded-full hover:scale-110 transition-transform">
+                            <i class="ri-twitter-line text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+            /* Modern Scrollbar Styling */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.03);
+                backdrop-filter: blur(10px);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: linear-gradient(to bottom, #6366f1, #06b6d4);
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(to bottom, #4f46e5, #0891b2);
+            }
+            :root {
+                --primary: #6366f1;
+                --secondary: #06b6d4;
+            }
+
+            :root[data-theme="light"] {
+                --bg-primary: #f8fafc;  /* Softer background */
+                --bg-secondary: #f1f5f9;
+                --text-primary: #334155;  /* Softer text color */
+                --text-secondary: #64748b;
+                --nav-bg: rgba(248, 250, 252, 0.7);  /* Softer nav background */
+                --glass-border: rgba(0, 0, 0, 0.03);
+                --button-hover: rgba(99, 102, 241, 0.08);
+            }
+
+            :root[data-theme="dark"] {
+                --bg-primary: #030712;
+                --bg-secondary: #111827;
+                --text-primary: #ffffff;
+                --text-secondary: #9ca3af;
+                --nav-bg: rgba(0, 0, 0, 0.7);
+                --glass-border: rgba(255, 255, 255, 0.05);
+                --button-hover: rgba(99, 102, 241, 0.2);
+            }
+
+            body {
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                font-family: 'Space Grotesk', sans-serif;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+
+            .glass {
+                background: var(--nav-bg);
+                backdrop-filter: blur(10px);
+                border: 1px solid var(--glass-border);
+            }
+
+            /* Burger and close icon animations */
+            .burger-icon, .close-icon {
+                transition: all 0.3s ease;
+            }
+
+            .close-icon {
+                transform: rotate(-180deg);
+                opacity: 0;
+            }
+
+            .menu-open .burger-icon {
+                transform: rotate(180deg);
+                opacity: 0;
+            }
+
+            .menu-open .close-icon {
+                transform: rotate(0);
+                opacity: 1;
+            }
+            #mobile-menu {
+                transform: translateY(-100%);
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                opacity: 0;
+            }
+
+            #mobile-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #mobile-menu .relative {
+                transform: translateY(20px);
+                opacity: 0;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            #mobile-menu.active .relative {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            </style>
+        <script src="./contact.js"></script>
+        <script>
+            const root = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+            const darkIcon = document.querySelector('.dark-icon');
+            const lightIcon = document.querySelector('.light-icon');
+            const darkIconMobile = themeToggleMobile.querySelector('.dark-icon');
+            const lightIconMobile = themeToggleMobile.querySelector('.light-icon');
+
+            // Check system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const savedTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+
+            // Theme setting function
+            function setTheme(theme) {
+                root.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+                
+                // Update both desktop and mobile icons
+                if (theme === 'dark') {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                    darkIconMobile.classList.add('hidden');
+                    lightIconMobile.classList.remove('hidden');
+                } else {
+                    darkIcon.classList.remove('hidden');
+                    lightIcon.classList.add('hidden');
+                    darkIconMobile.classList.remove('hidden');
+                    lightIconMobile.classList.add('hidden');
+                }
+            }
+
+            // Set initial theme
+            setTheme(savedTheme);
+
+            // Theme toggle event listeners
+            themeToggle.addEventListener('click', () => {
+                const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            themeToggleMobile.addEventListener('click', () => {
+                const newTheme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+                setTheme(newTheme);
+            });
+
+            // Mobile Menu Functionality
+            const burgerMenu = document.getElementById('burger-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = mobileMenu.querySelector('.close-menu');
+            const mobileLinks = mobileMenu.getElementsByTagName('a');
+
+            function openMenu() {
+                mobileMenu.classList.add('active');
+                mobileMenu.style.pointerEvents = 'auto';
+                document.body.classList.add('overflow-hidden');
+            }
+
+            function closeMenu() {
+                mobileMenu.classList.remove('active');
+                mobileMenu.style.pointerEvents = 'none';
+                document.body.classList.remove('overflow-hidden');
+            }
+
+            burgerMenu.addEventListener('click', openMenu);
+            closeMenuBtn.addEventListener('click', closeMenu);
+
+            // Close mobile menu when clicking links
+            Array.from(mobileLinks).forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeMenu();
+            });
+        </script>
+    </body>
+    </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+<script>
+    VANTA.NET({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0x6366f1,
+        backgroundColor: 0x0,
+        points: 15.00,
+        maxDistance: 25.00,
+        spacing: 15.00
+    });
+</script>
 
 
-<!-- Projects Section -->
-<section id="projects" class="py-20 px-6 bg-gray-800">
-    <h2 class="text-3xl font-semibold text-center text-white">My Projects</h2>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        <!-- Project 1 -->
-        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
-            <h3 class="text-xl font-semibold text-white">Project Name</h3>
-            <p class="text-gray-400 mt-2">Short project description.</p>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
-            <h3 class="text-xl font-semibold text-white">Project Name</h3>
-            <p class="text-gray-400 mt-2">Short project description.</p>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="bg-gray-900 p-6 rounded-lg shadow-lg hover:scale-105 transition">
-            <h3 class="text-xl font-semibold text-white">Project Name</h3>
-            <p class="text-gray-400 mt-2">Short project description.</p>
-        </div>
-    </div>
-</section>
-
-    <section id="contact" class="py-20 px-6 text-center bg-gray-900">
-    <h2 class="text-3xl font-semibold text-white">Contact Me</h2>
-
-    <form class="max-w-lg mx-auto mt-6">
-        <input type="text" placeholder="Your Name" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4">
-        <input type="email" placeholder="Your Email" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4">
-        <textarea placeholder="Your Message" class="w-full px-4 py-3 bg-gray-800 text-white rounded-lg mb-4"></textarea>
-        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition">
-            Send Message
-        </button>
-    </form>
-</section>
-
-</body>
-</html>
